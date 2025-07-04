@@ -2,12 +2,17 @@ TERMUX_PKG_HOMEPAGE=https://filebrowser.org/
 TERMUX_PKG_DESCRIPTION="Web file browser based on Go"
 TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_MAINTAINER="@termux-user-repository"
-TERMUX_PKG_VERSION="2.32.0"
+TERMUX_PKG_VERSION="2.36.1"
 TERMUX_PKG_SRCURL="https://github.com/filebrowser/filebrowser/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=61e9de6b2d396614f45be477e5bb5aad189e7bb1155a3f88800e02421bd6cc2b
+TERMUX_PKG_SHA256=a3cfa37b127ca81ce59db1b45e41bfdfdc13097dccbb44d65a53f5c019b8dd62
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_HOSTBUILD=true
+
+termux_step_post_get_source() {
+	termux_setup_golang
+	go mod vendor
+}
 
 termux_step_host_build() {
 	if [ -e "$TERMUX_PREFIX/bin" ]; then

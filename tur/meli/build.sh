@@ -2,7 +2,7 @@ TERMUX_PKG_HOMEPAGE=https://meli.delivery/
 TERMUX_PKG_DESCRIPTION="Terminal e-mail client and e-mail client library"
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux-user-repository"
-TERMUX_PKG_VERSION="0.8.10"
+TERMUX_PKG_VERSION="0.8.11"
 TERMUX_PKG_SRCURL=git+https://github.com/meli/meli
 TERMUX_PKG_BUILD_IN_SRC=true
 # gpgme and notmuch are dlopened.
@@ -10,7 +10,7 @@ TERMUX_PKG_DEPENDS="gpgme, libcurl, libsqlite, notmuch, openssl, pcre2"
 TERMUX_PKG_ANTI_BUILD_DEPENDS="gpgme, notmuch"
 TERMUX_PKG_UPDATE_TAG_TYPE="newest-tag"
 # `meli` assumes that `(u)size_t` is 64-bit, but it is not true on 32-bit Android.
-TERMUX_PKG_BLACKLISTED_ARCHES="arm, i686"
+TERMUX_PKG_EXCLUDED_ARCHES="arm, i686"
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_UPDATE_TAG_TYPE="latest-release-tag"
 

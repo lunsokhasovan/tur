@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://github.com/pola-rs/polars
 TERMUX_PKG_DESCRIPTION="Dataframes powered by a multithreaded, vectorized query engine, written in Rust"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@termux-user-repository"
-TERMUX_PKG_VERSION="1.26.0"
+TERMUX_PKG_VERSION="1.31.0"
 TERMUX_PKG_SRCURL=https://github.com/pola-rs/polars/releases/download/py-$TERMUX_PKG_VERSION/polars-$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=b5492d38e5ec2ae6a8853833c5a31549194a361b901134fc5f2f57b49bd563ea
+TERMUX_PKG_SHA256=59a88054a5fc0135386268ceefdbb6a6cc012d21b5b44fed4f1d3faabbdcbf32
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_DEPENDS="libc++, python"
 TERMUX_PKG_PYTHON_COMMON_DEPS="wheel"
@@ -15,23 +15,20 @@ TERMUX_PKG_UPDATE_TAG_TYPE="latest-release-tag"
 
 # Polars doesn't officially support 32-bit Python.
 # See https://github.com/pola-rs/polars/issues/10460
-TERMUX_PKG_BLACKLISTED_ARCHES="arm, i686"
+TERMUX_PKG_EXCLUDED_ARCHES="arm, i686"
 
 termux_pkg_auto_update() {
 	# Get latest release tag:
 	local api_url="https://api.github.com/repos/pola-rs/polars/git/refs/tags"
-	local latest_refs_tags=$(curl -s "${api_url}" | jq .[].ref | grep -oP py-${TERMUX_PKG_UPDATE_VERSION_REGEXP} | sort -V)
+	local latest_refs_tags=$(
+		curl -s "$api_url" | jq -r .[].ref | cut -d'/' -f 3 |
+			grep "py-" | grep -v -E "(rc)|(alpha)|(beta)"
+	)
 	if [[ -z "${latest_refs_tags}" ]]; then
 		echo "WARN: Unable to get latest refs tags from upstream. Try again later." >&2
 		return
 	fi
-
-	local latest_version="$(echo "${latest_refs_tags}" | tail -n1 | cut -c 4-)"
-	if [[ "${latest_version}" == "${TERMUX_PKG_VERSION}" ]]; then
-		echo "INFO: No update needed. Already at version '${TERMUX_PKG_VERSION}'."
-		return
-	fi
-
+	local latest_version="$(echo "${latest_refs_tags}" | sort -V | tail -n1)"
 	termux_pkg_upgrade_version "${latest_version}"
 }
 
@@ -51,6 +48,11 @@ termux_step_pre_configure() {
 	touch "${TERMUX_PKG_BUILDDIR}/android.toolchain.cmake"
 
 	cargo vendor
+	find ./vendor \
+		-mindepth 1 -maxdepth 1 -type d \
+		! -wholename ./vendor/arboard \
+		-exec rm -rf '{}' \;
+
 	patch --silent -p1 \
 		-d ./vendor/arboard/ \
 		< "$TERMUX_PKG_BUILDER_DIR"/arboard-dummy-platform.diff

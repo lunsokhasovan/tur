@@ -3,19 +3,29 @@ TERMUX_PKG_DESCRIPTION="Pure Rust tool to generate beautiful code snapshots, pro
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_LICENSE_FILE="LICENSE"
 TERMUX_PKG_MAINTAINER="@termux-user-repository"
-TERMUX_PKG_VERSION="0.10.5"
+TERMUX_PKG_VERSION="0.12.9"
 TERMUX_PKG_SRCURL="https://github.com/mistricky/CodeSnap/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=f9ba0e36aab5c671f8068ca0d7bbd3cab4432f72096dbc6c425f4aaf9bc1b780
+TERMUX_PKG_SHA256=365d64b0a752396b55d400c08e287c1b09556a8eaca4242cab55d17da8a7af48
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_pre_configure() {
 	termux_setup_rust
 
+	if [ "$TERMUX_ARCH" = "i686" ]; then
+		local env_host=$(printf $CARGO_TARGET_NAME | tr a-z A-Z | sed s/-/_/g)
+		export CARGO_TARGET_${env_host}_RUSTFLAGS+=" -C link-arg=$($CC -print-libgcc-file-name)"
+	fi
+
 	: "${CARGO_HOME:=$HOME/.cargo}"
 	export CARGO_HOME
 
 	cargo vendor
+	find ./vendor \
+		-mindepth 1 -maxdepth 1 -type d \
+		! -wholename ./vendor/arboard \
+		-exec rm -rf '{}' \;
+
 	patch --silent -p1 \
 		-d ./vendor/arboard/ \
 		< "$TERMUX_PKG_BUILDER_DIR"/arboard-dummy-platform.diff
@@ -33,9 +43,4 @@ termux_step_make_install() {
 	install -Dm700 -t $TERMUX_PREFIX/bin target/${CARGO_TARGET_NAME}/release/codesnap
 
 	install -Dm600 -t $TERMUX_PREFIX/share/doc/$TERMUX_PKG_NAME README.*
-}
-
-termux_step_post_make_install() {
-	# Remove the vendor sources to save space
-	rm -rf "$TERMUX_PKG_SRCDIR"/vendor
 }

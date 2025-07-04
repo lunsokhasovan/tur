@@ -4,13 +4,13 @@ TERMUX_PKG_DESCRIPTION="A scalable, distributed, collaborative, document-graph d
 TERMUX_PKG_LICENSE="non-free"
 TERMUX_PKG_LICENSE_FILE="LICENSE"
 TERMUX_PKG_MAINTAINER="@SunPodder"
-TERMUX_PKG_VERSION="2.2.1"
+TERMUX_PKG_VERSION="2.3.6"
 TERMUX_PKG_SRCURL="https://github.com/surrealdb/surrealdb/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=8cdc3f28909b25d9d0107ab1de53f55a09ef962cae992a4a47d1b0d5566d43bb
+TERMUX_PKG_SHA256=2195b6c4da1675c51c20e5ae9b2e482b3c7b6d84dbcad415cc78474c92f58d3d
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_DEPENDS="openssl, zlib"
-TERMUX_PKG_BLACKLISTED_ARCHES="arm, i686"
+TERMUX_PKG_EXCLUDED_ARCHES="arm, i686"
 
 termux_step_configure() {
 	termux_setup_protobuf
