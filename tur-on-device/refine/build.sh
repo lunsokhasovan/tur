@@ -14,6 +14,7 @@ termux_step_pre_configure() {
 		termux_error_exit "This package doesn't support cross-compiling."
 	fi
 
+	sed -i 's/import locale/import gettext as locale/g' refine/refine.in
 	export PYTHONDONTWRITEBYTECODE=1
 	termux_setup_gir
 }
