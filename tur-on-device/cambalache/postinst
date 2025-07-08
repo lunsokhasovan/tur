@@ -1,0 +1,4 @@
+#!@TERMUX_PREFIX@/bin/bash
+set -e
+
+update-mime-database -n "@TERMUX_PREFIX@/share/mime"
