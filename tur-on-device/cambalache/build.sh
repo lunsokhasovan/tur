@@ -15,7 +15,6 @@ termux_step_pre_configure() {
 	fi
 
 	pip install setuptools
-	sed -i 's/import locale/import gettext as locale/g' cambalache/app/cambalache.in
 	export PYTHONDONTWRITEBYTECODE=1
 	termux_setup_gir
 }

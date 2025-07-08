@@ -1,0 +1,42 @@
+diff --git a/cambalache/app/cambalache.in b/cambalache/app/cambalache.in
+--- a/cambalache/app/cambalache.in	2025-07-01 09:45:16.000000000 +0700
++++ b/cambalache/app/cambalache.in	2025-07-08 11:02:17.843478534 +0700
+@@ -27,7 +27,7 @@
+ import os
+ import sys
+ import signal
+-import locale
++import gettext as locale
+ import builtins
+ 
+ pkgdatadir = '@pkgdatadir@'
+diff --git a/cambalache/cmb_notification.py b/cambalache/cmb_notification.py
+--- a/cambalache/cmb_notification.py	2025-07-01 09:45:16.000000000 +0700
++++ b/cambalache/cmb_notification.py	2025-07-08 11:20:06.883477769 +0700
+@@ -180,16 +180,17 @@
+         platform_strings = []
+         table = str.maketrans({",": "\\,"})
+ 
+-        if u.system == "Linux":
+-            release = platform.freedesktop_os_release()
+-            system = f"Linux {release['ID']}"
++        #if u.system == "Linux":
++        #    release = platform.freedesktop_os_release()
++        #    system = f"Linux {release['ID']}"
+ 
+-            if "VERSION_ID" in release:
+-                system += f" {release['VERSION_ID']}"
+-            if "VERSION_CODENAME" in release:
+-                system += f" {release['VERSION_CODENAME']}"
+-        else:
+-            system = u.system
++        #    if "VERSION_ID" in release:
++        #        system += f" {release['VERSION_ID']}"
++        #    if "VERSION_CODENAME" in release:
++        #        system += f" {release['VERSION_CODENAME']}"
++        #else:
++        #    system = u.system
++        system = u.system
+ 
+         display_type = GObject.type_name(Gdk.Display.get_default())
+         backend = display_type.removeprefix("Gdk").removesuffix("Display")
