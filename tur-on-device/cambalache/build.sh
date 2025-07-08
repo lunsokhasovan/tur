@@ -5,7 +5,7 @@ TERMUX_PKG_MAINTAINER="@termux-user-repository, @lunsokhasovan"
 TERMUX_PKG_VERSION=0.97.4
 TERMUX_PKG_SRCURL=https://gitlab.gnome.org/jpu/cambalache/-/archive/${TERMUX_PKG_VERSION}/cambalache-${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=ab14692a1febab75c87170b9b5bb8dd49e9d43fb2687e3614c1976e8cda58ae7
-TERMUX_PKG_DEPENDS="glib, gtk3, gtk4, gtksourceview5, json-glib, libadwaita, libhandy, libcairo, libx11, libxml2, libxkbcommon, pygobject, webkit2gtk-4.1, webkitgtk-6.0, wlroot"
+TERMUX_PKG_DEPENDS="glib, gtk3, gtk4, gtksourceview5, json-glib, libadwaita, libhandy, libcairo, libx11, libxml2, libxkbcommon, pygobject, webkit2gtk-4.1, webkitgtk-6.0, wlroots"
 TERMUX_PKG_BUILD_DEPENDS="blueprint-compiler, g-ir-scanner, gettext"
 TERMUX_PKG_AUTO_UPDATE=true
 
