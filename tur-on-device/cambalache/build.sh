@@ -7,6 +7,7 @@ TERMUX_PKG_SRCURL=https://gitlab.gnome.org/jpu/cambalache/-/archive/${TERMUX_PKG
 TERMUX_PKG_SHA256=ab14692a1febab75c87170b9b5bb8dd49e9d43fb2687e3614c1976e8cda58ae7
 TERMUX_PKG_DEPENDS="glib, gtk3, gtk4, gtksourceview5, json-glib, libadwaita, libhandy, libcairo, libx11, libxml2, libxml2-python, libxkbcommon, pygobject, python-lxml, webkit2gtk-4.1, webkitgtk-6.0, wlroots"
 TERMUX_PKG_BUILD_DEPENDS="blueprint-compiler, g-ir-scanner, gettext"
+TERMUX_PKG_PYTHON_COMMON_DEPS="setuptools"
 TERMUX_PKG_AUTO_UPDATE=true
 
 termux_step_pre_configure() {
@@ -14,7 +15,6 @@ termux_step_pre_configure() {
 		termux_error_exit "This package doesn't support cross-compiling."
 	fi
 
-	pip install setuptools
 	export PYTHONDONTWRITEBYTECODE=1
 	termux_setup_gir
 }
