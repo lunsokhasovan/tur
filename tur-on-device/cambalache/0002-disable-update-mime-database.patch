@@ -1,0 +1,12 @@
+diff --git a/meson.build b/meson.build
+--- a/meson.build	2025-07-22 07:14:31.775476886 +0700
++++ b/meson.build	2025-07-22 07:15:31.843476843 +0700
+@@ -104,7 +104,7 @@
+ gnome.post_install(
+   glib_compile_schemas: true,
+   update_desktop_database: true,
+-  update_mime_database: true,
++  update_mime_database: false,
+   gtk_update_icon_cache: true,
+ )
+ 
