@@ -17,4 +17,5 @@ termux_step_pre_configure() {
 
 	export PYTHONDONTWRITEBYTECODE=1
 	termux_setup_gir
+	termux_setup_python_pip
 }
