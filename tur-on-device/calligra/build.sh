@@ -10,7 +10,5 @@ TERMUX_PKG_BUILD_DEPENDS="boost, eigen, extra-cmake-modules, qt6-qttools, kf6-kc
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DCMAKE_SYSTEM_NAME=Linux
--DKF6_HOST_TOOLING=$TERMUX_PREFIX/opt/kf6/cross/lib/cmake/
 -DUSE_DBUS=OFF
--DRELEASE_BUILD=true
 "
