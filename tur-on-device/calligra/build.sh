@@ -8,10 +8,14 @@ TERMUX_PKG_SHA256=26d75a67eca8a137849bc925da0f65f49f11c29e9fc75346cb2d6627036e6d
 TERMUX_PKG_DEPENDS="gsl, libc++, libgit2, libetonyek, libodfgen, librevenge, libwpd, libwpg, libwps, libvisio, littlecms, fontconfig, freetype, imath, kf6-karchive, kf6-kcmutils, kf6-kcolorscheme, kf6-kcompletion, kf6-kconfig, kf6-kconfigwidgets, kf6-kcoreaddons, kf6-kcrash, kf6-kdbusaddons, kf6-kguiaddons, kf6-ki18n, kf6-kiconthemes, kf6-kio, kf6-kitemviews, kf6-kjobwidgets, kf6-knotifications, kf6-knotifyconfig, kf6-ktextwidgets, kf6-kwidgetsaddons, kf6-kwindowsystem, kf6-kxmlgui, kf6-purpose, kf6-sonnet, kf6-solid, mediainfo, mlt, opengl, openssl, opentimelineio, perl, poppler, qt6-qtbase, qt6-qtdeclarative, qt6-qtmultimedia, qt6-qtnetworkauth, qt6-qtsvg, qca, qtkeychain, shared-mime-info, zlib"
 TERMUX_PKG_BUILD_DEPENDS="boost, eigen, extra-cmake-modules, qt6-qttools, kf6-kconfig-cross-tools"
 TERMUX_PKG_AUTO_UPDATE=true
-# FIXME: Cmake can't find Qt6Keychain without `-DCMAKE_PREFIX_PATH`.
+# TODO: Cmake can't find any module. Adding extra configures will work.
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DCMAKE_SYSTEM_NAME=Linux
--DCMAKE_PREFIX_PATH=$TERMUX_PREFIX/lib/cmake/Qt6Keychain
+-DCMAKE_PREFIX_PATH=$TERMUX_PREFIX
+-DCMAKE_SHARED_LIBRARY_PREFIX=$TERMUX_PREFIX/lib
+-DCMAKE_SHARED_MODULE_PREFIX=$TERMUX_PREFIX/lib/cmake
 -DKF6_HOST_TOOLING=$TERMUX_PREFIX/opt/kf6/cross/lib/cmake/
+-DKDE_INSTALL_QMLDIR=lib/qt6/qml
+-DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins
 -DUSE_DBUS=OFF
 "
