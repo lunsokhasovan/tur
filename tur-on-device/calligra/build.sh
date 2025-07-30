@@ -11,7 +11,6 @@ TERMUX_PKG_AUTO_UPDATE=true
 # TODO: Cmake can't find any module. Adding extra configures will work.
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DCMAKE_SYSTEM_NAME=Linux
--DPKG_CONFIG_USE_CMAKE_PREFIX_PATH=true
 -DKF6_HOST_TOOLING=$TERMUX_PREFIX/opt/kf6/cross/lib/cmake/
 -DKDE_INSTALL_QMLDIR=lib/qt6/qml
 -DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins
